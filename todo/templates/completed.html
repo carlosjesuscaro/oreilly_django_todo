@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Todo Items Completed</h1>
+    <ul>
+        {% for complete in completed %}
+            <li>{{ complete.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
