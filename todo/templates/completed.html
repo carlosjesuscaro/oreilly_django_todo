@@ -4,7 +4,7 @@
     <h1>Todo Items Completed</h1>
     <ul>
         {% for complete in completed %}
-            <li>{{ complete.title }}</li>
+            <li>{{ complete.title }} - {{ complete.date_completed|date:'M j Y H:i' }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

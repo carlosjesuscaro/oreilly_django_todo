@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import TodoForm
 from .models import Todo
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 
 def signup_user(request):
@@ -27,11 +28,13 @@ def signup_user(request):
                                                    'error': 'Passwords do not match'})
 
 
+@login_required
 def current(request):
     todos = Todo.objects.filter(user=request.user, date_completed__isnull=True)
     return render(request, "current.html", {'todos': todos})
 
 
+@login_required
 def logout_user(request):
     if request.method == 'POST':
         logout(request)
@@ -55,6 +58,7 @@ def home(request):
     return render(request, "home.html")
 
 
+@login_required
 def create_todo(request):
     if request.method == 'GET':
         return render(request, "create.html", {'form': TodoForm()})
@@ -69,6 +73,7 @@ def create_todo(request):
             return render(request, "create.html", {'form': TodoForm(), 'error': "Incorrect entry"})
 
 
+@login_required
 def view_todo(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'GET':
@@ -89,6 +94,7 @@ def test(request):
     return render(request, "test.html")
 
 
+@login_required
 def complete_todo(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
@@ -97,6 +103,7 @@ def complete_todo(request, todo_pk):
         return redirect("current")
 
 
+@login_required
 def delete_todo(request, todo_pk):
     todo = get_object_or_404(Todo, pk=todo_pk, user=request.user)
     if request.method == 'POST':
@@ -104,6 +111,7 @@ def delete_todo(request, todo_pk):
         return redirect("current")
 
 
+@login_required
 def completed(request):
-    completed = Todo.objects.filter(date_completed__isnull=False)
+    completed = Todo.objects.filter(date_completed__isnull=False).order_by('-date_completed')
     return render(request, "completed.html", {'completed': completed})

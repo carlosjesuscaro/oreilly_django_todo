@@ -16,6 +16,10 @@
         <a href="{% url 'login_user' %}">Login</a>
     {% endif %}
 
+    <a href="{% url 'create_todo' %}">Create</a>
+    <a href="{% url 'completed' %}">Completed</a>
+    <a href="{% url 'current' %}">Open items</a>
+
     {% block content %}
     {% endblock %}
 </body>
