@@ -23,9 +23,13 @@ urlpatterns = [
     # Todos
     path("current/", views.current, name="current"),
     path("", views.home, name="home"),
+    path("create/", views.create_todo, name="create_todo"),
+    path("todo/<int:todo_pk>", views.view_todo, name="view_todo"),
+    path("test", views.test, name="test"),
+    path("todo/<int:todo_pk>/complete", views.complete_todo, name="complete_todo"),
 
     # Authentication
-    path("signupuser/", views.signupuser, name="signupuser"),
-    path("logout/", views.logoutuser, name="logoutuser"),
-    path("login/", views.loginuser, name="loginuser"),
+    path("signupuser/", views.signup_user, name="signup_user"),
+    path("logout/", views.logout_user, name="logout_user"),
+    path("login/", views.login_user, name="login_user"),
 ]
